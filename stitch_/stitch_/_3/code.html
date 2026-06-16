@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>子表映射配置 - 订单明细</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#001b3c",
+                        "primary-fixed-dim": "#a7c8ff",
+                        "on-tertiary-container": "#969ca4",
+                        "surface-container": "#e5eeff",
+                        "on-primary-container": "#799dd6",
+                        "inverse-on-surface": "#eaf1ff",
+                        "secondary-container": "#6ca3fd",
+                        "on-surface": "#0b1c30",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#aac7ff",
+                        "primary-fixed": "#d5e3ff",
+                        "tertiary-fixed-dim": "#c1c7cf",
+                        "surface-container-highest": "#d3e4fe",
+                        "tertiary-fixed": "#dde3eb",
+                        "surface-container-low": "#eff4ff",
+                        "tertiary-container": "#2e343a",
+                        "inverse-surface": "#213145",
+                        "surface-tint": "#3a5f94",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#003874",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#d3e4fe",
+                        "surface": "#f8f9ff",
+                        "outline-variant": "#c3c6d1",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#cbdbf5",
+                        "primary": "#001e40",
+                        "on-tertiary-fixed-variant": "#41474e",
+                        "on-secondary-fixed": "#001b3e",
+                        "on-primary-fixed-variant": "#1f477b",
+                        "on-tertiary-fixed": "#161c22",
+                        "on-background": "#0b1c30",
+                        "background": "#f8f9ff",
+                        "surface-container-high": "#dce9ff",
+                        "primary-container": "#003366",
+                        "secondary": "#165db2",
+                        "secondary-fixed": "#d6e3ff",
+                        "outline": "#737780",
+                        "tertiary": "#191f25",
+                        "surface-bright": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#00458d",
+                        "on-surface-variant": "#43474f",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#a7c8ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "toolbar-height": "56px",
+                        "panel-width": "320px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "xl": "32px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "title-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "mono-label": ["JetBrains Mono"],
+                        "headline-lg": ["Inter"],
+                        "title-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "title-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "display": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "mono-label": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "title-lg": ["16px", {"lineHeight": "24px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #f1f5f9;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-md">
+<!-- Modal Backdrop -->
+<div class="fixed inset-0 bg-on-background/40 backdrop-blur-sm z-40"></div>
+<!-- Main Modal Container -->
+<div class="relative z-50 w-full max-w-[840px] bg-surface-container-lowest border border-outline-variant shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in duration-300">
+<!-- Header -->
+<header class="h-toolbar-height flex items-center justify-between px-md border-b border-outline-variant bg-surface-container-low">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">account_tree</span>
+<h1 class="font-title-lg text-title-lg text-on-surface">子表映射配置 - 订单明细</h1>
+</div>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-variant transition-colors rounded">
+<span class="material-symbols-outlined text-on-surface-variant">close</span>
+</button>
+</header>
+<!-- Scrollable Content -->
+<main class="flex-1 overflow-y-auto custom-scrollbar p-lg space-y-xl max-h-[768px]">
+<!-- Section 1: Data Association -->
+<section class="space-y-md">
+<div class="flex items-center gap-xs">
+<div class="w-1 h-4 bg-secondary rounded-full"></div>
+<h2 class="font-title-md text-title-md text-on-surface uppercase tracking-wider">数据关联配置</h2>
+</div>
+<div class="grid grid-cols-2 gap-md bg-surface-container-low/50 p-md border border-outline-variant rounded-lg">
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">关联表格编码</label>
+<div class="relative">
+<input class="w-full h-10 px-sm font-mono-label text-mono-label bg-surface border border-outline-variant focus:border-secondary focus:ring-0 cursor-default" readonly="" type="text" value="TB_ORDER_ITEMS_001"/>
+<span class="material-symbols-outlined absolute right-2 top-2.5 text-on-surface-variant/50 text-sm">lock</span>
+</div>
+</div>
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">主键关联字段</label>
+<select class="w-full h-10 px-sm font-body-md text-body-md bg-surface border border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+<option>order_id</option>
+<option>parent_guid</option>
+<option>ref_document_id</option>
+</select>
+</div>
+<div class="col-span-2 space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">默认过滤条件 (SQL-Where)</label>
+<div class="relative">
+<textarea class="w-full px-sm py-sm font-mono-label text-mono-label bg-surface border border-outline-variant focus:border-secondary focus:ring-1 focus:ring-secondary transition-all resize-none" placeholder="例如: status = 'active' AND is_deleted = 0" rows="2"></textarea>
+<button class="absolute right-2 bottom-2 p-1 hover:bg-surface-variant rounded">
+<span class="material-symbols-outlined text-secondary text-lg">code</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Display Rules -->
+<section class="space-y-md">
+<div class="flex items-center gap-xs">
+<div class="w-1 h-4 bg-secondary rounded-full"></div>
+<h2 class="font-title-md text-title-md text-on-surface uppercase tracking-wider">显示规则</h2>
+</div>
+<div class="grid grid-cols-2 gap-lg bg-surface-container-low/50 p-md border border-outline-variant rounded-lg">
+<div class="space-y-sm">
+<div class="flex items-center justify-between group cursor-pointer">
+<label class="font-body-md text-body-md text-on-surface-variant group-hover:text-on-surface transition-colors">显示表头 (Show Header)</label>
+<input checked="" class="w-4 h-4 text-secondary rounded border-outline-variant focus:ring-secondary" type="checkbox"/>
+</div>
+<div class="flex items-center justify-between group cursor-pointer">
+<label class="font-body-md text-body-md text-on-surface-variant group-hover:text-on-surface transition-colors">允许增行 (Enable Add Row)</label>
+<input checked="" class="w-4 h-4 text-secondary rounded border-outline-variant focus:ring-secondary" type="checkbox"/>
+</div>
+<div class="flex items-center justify-between group cursor-pointer">
+<label class="font-body-md text-body-md text-on-surface-variant group-hover:text-on-surface transition-colors">允许批量删除 (Enable Batch Delete)</label>
+<input class="w-4 h-4 text-secondary rounded border-outline-variant focus:ring-secondary" type="checkbox"/>
+</div>
+</div>
+<div class="space-y-sm">
+<label class="font-label-md text-label-md text-on-surface-variant">表格高度 (Table Height)</label>
+<div class="flex gap-sm">
+<button class="flex-1 h-9 font-body-md text-body-md bg-secondary text-on-secondary border border-secondary">自动适应 (Auto)</button>
+<button class="flex-1 h-9 font-body-md text-body-md bg-surface text-on-surface-variant border border-outline-variant hover:border-secondary transition-colors">固定高度 (Fixed)</button>
+</div>
+<div class="relative">
+<input class="w-full h-9 px-sm font-body-md text-body-md bg-surface-variant/30 border border-outline-variant opacity-50 cursor-not-allowed" disabled="" placeholder="300" type="number"/>
+<span class="absolute right-3 top-2 font-label-md text-label-md text-on-surface-variant">PX</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Field Permissions -->
+<section class="space-y-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-xs">
+<div class="w-1 h-4 bg-secondary rounded-full"></div>
+<h2 class="font-title-md text-title-md text-on-surface uppercase tracking-wider">字段权限配置</h2>
+</div>
+<button class="text-secondary font-label-md text-label-md flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-sm">refresh</span> 重新加载字段
+                    </button>
+</div>
+<!-- Permissions Table -->
+<div class="border border-outline-variant rounded-lg overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-high">
+<tr>
+<th class="px-md py-sm font-title-md text-label-md text-on-surface uppercase border-b border-outline-variant">字段名</th>
+<th class="px-md py-sm font-title-md text-label-md text-on-surface uppercase border-b border-outline-variant">字段说明</th>
+<th class="px-md py-sm font-title-md text-label-md text-on-surface text-center border-b border-outline-variant">是否显示</th>
+<th class="px-md py-sm font-title-md text-label-md text-on-surface text-center border-b border-outline-variant">是否编辑</th>
+<th class="px-md py-sm font-title-md text-label-md text-on-surface text-center border-b border-outline-variant">是否必填</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant bg-surface">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-md py-sm font-mono-label text-mono-label text-primary">sku_id</td>
+<td class="px-md py-sm font-body-md text-body-md text-on-surface-variant">物料编码</td>
+<td class="px-md py-sm text-center"><input checked="" class="w-4 h-4 text-secondary rounded" type="checkbox"/></td>
+<td class="px-md py-sm text-center"><input checked="" class="w-4 h-4 text-secondary rounded" type="checkbox"/></td>
+<td class="px-md py-sm text-center"><input checked="" class="w-4 h-4 text-secondary rounded" type="checkbox"/></td>
+</tr>
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<td class="px-md py-sm font-mono-label text-mono-label text-primary">sku_name</td>
+<td class="px-md py-sm font-body-md text-body-md text-on-surface-variant">物料名称</td>
+<td class="px-md py-sm text-center"><input checked="" class="w-4 h-4 text-secondary rounded" type="checkbox"/></td>
+<td class="px-md py-sm text-center"><input class="w-4 h-4 text-secondary rounded" type="checkbox"/></td>
+<td class="px-md py-sm text-center"><input class="w-4 h-4 text-secondary rounded" type="checkbox"/></td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-md py-sm font-mono-label text-mono-label text-primary">unit_price</td>
+<td class="px-md py-sm font-body-md text-body-md text-on-surface-variant">含税单价</td>
+<td class="px-md py-sm text-center"><input checked="" class="w-4 h-4 text-secondary rounded" type="checkbox"/></td>
+<td class="px-md py-sm text-center"><input checked="" class="w-4 h-4 text-secondary rounded" type="checkbox"/></td>
+<td class="px-md py-sm text-center"><input checked="" class="w-4 h-4 text-secondary rounded" type="checkbox"/></td>
+</tr>
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<td class="px-md py-sm font-mono-label text-mono-label text-primary">quantity</td>
+<td class="px-md py-sm font-body-md text-body-md text-on-surface-variant">下单数量</td>
+<td class="px-md py-sm text-center"><input checked="" class="w-4 h-4 text-secondary rounded" type="checkbox"/></td>
+<td class="px-md py-sm text-center"><input checked="" class="w-4 h-4 text-secondary rounded" type="checkbox"/></td>
+<td class="px-md py-sm text-center"><input checked="" class="w-4 h-4 text-secondary rounded" type="checkbox"/></td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-md py-sm font-mono-label text-mono-label text-primary">total_amount</td>
+<td class="px-md py-sm font-body-md text-body-md text-on-surface-variant">金额合计</td>
+<td class="px-md py-sm text-center"><input checked="" class="w-4 h-4 text-secondary rounded" type="checkbox"/></td>
+<td class="px-md py-sm text-center"><input class="w-4 h-4 text-secondary rounded" type="checkbox"/></td>
+<td class="px-md py-sm text-center"><input class="w-4 h-4 text-secondary rounded" type="checkbox"/></td>
+</tr>
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<td class="px-md py-sm font-mono-label text-mono-label text-primary">remarks</td>
+<td class="px-md py-sm font-body-md text-body-md text-on-surface-variant">备注说明</td>
+<td class="px-md py-sm text-center"><input checked="" class="w-4 h-4 text-secondary rounded" type="checkbox"/></td>
+<td class="px-md py-sm text-center"><input checked="" class="w-4 h-4 text-secondary rounded" type="checkbox"/></td>
+<td class="px-md py-sm text-center"><input class="w-4 h-4 text-secondary rounded" type="checkbox"/></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+<!-- Footer Actions -->
+<footer class="h-[72px] px-lg border-t border-outline-variant bg-surface-container-lowest flex items-center justify-end gap-md">
+<button class="px-xl h-10 font-title-md text-title-md text-on-surface-variant bg-surface-container-lowest border border-outline-variant hover:bg-surface-variant transition-colors active:scale-95 duration-150">
+                取消
+            </button>
+<button class="px-xl h-10 font-title-md text-title-md text-on-primary bg-primary border border-primary hover:bg-primary-container transition-colors shadow-sm active:scale-95 duration-150">
+                确认保存
+            </button>
+</footer>
+</div>
+<!-- Decorative Industrial Element (Optional Background) -->
+<div class="fixed top-0 left-0 w-full h-1 pointer-events-none bg-gradient-to-r from-secondary via-primary to-secondary/30 opacity-50 z-[60]"></div>
+<script>
+        // Simple micro-interaction for Height toggle
+        const heightButtons = document.querySelectorAll('section:nth-child(2) button');
+        const heightInput = document.querySelector('input[type="number"]');
+
+        heightButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                heightButtons.forEach(b => {
+                    b.classList.remove('bg-secondary', 'text-on-secondary');
+                    b.classList.add('bg-surface', 'text-on-surface-variant', 'border-outline-variant');
+                });
+                btn.classList.add('bg-secondary', 'text-on-secondary');
+                btn.classList.remove('bg-surface', 'text-on-surface-variant', 'border-outline-variant');
+                
+                if (btn.innerText.includes('固定')) {
+                    heightInput.removeAttribute('disabled');
+                    heightInput.classList.remove('bg-surface-variant/30', 'opacity-50', 'cursor-not-allowed');
+                    heightInput.classList.add('bg-surface');
+                } else {
+                    heightInput.setAttribute('disabled', 'true');
+                    heightInput.classList.add('bg-surface-variant/30', 'opacity-50', 'cursor-not-allowed');
+                    heightInput.classList.remove('bg-surface');
+                }
+            });
+        });
+    </script>
+</body></html>

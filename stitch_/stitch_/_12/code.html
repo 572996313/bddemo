@@ -1,0 +1,345 @@
+<!DOCTYPE html><html class="light" lang="zh-CN" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Visual Workbench - 数据查询中心</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#0b1c30",
+                        "on-secondary": "#ffffff",
+                        "surface": "#f8f9ff",
+                        "on-tertiary-fixed-variant": "#41474e",
+                        "surface-dim": "#cbdbf5",
+                        "on-background": "#0b1c30",
+                        "outline-variant": "#c3c6d1",
+                        "on-secondary-fixed-variant": "#00458d",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "surface-container": "#e5eeff",
+                        "primary": "#001e40",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#2e343a",
+                        "secondary-fixed-dim": "#aac7ff",
+                        "inverse-primary": "#a7c8ff",
+                        "secondary-container": "#6ca3fd",
+                        "surface-container-high": "#dce9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#165db2",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#003366",
+                        "on-surface-variant": "#43474f",
+                        "secondary-fixed": "#d6e3ff",
+                        "surface-variant": "#d3e4fe",
+                        "background": "#f8f9ff",
+                        "outline": "#737780",
+                        "on-secondary-fixed": "#001b3e",
+                        "on-primary-fixed": "#001b3c",
+                        "tertiary-fixed-dim": "#c1c7cf",
+                        "surface-tint": "#3a5f94",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary-fixed-dim": "#a7c8ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-secondary-container": "#003874",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#dde3eb",
+                        "on-primary-fixed-variant": "#1f477b",
+                        "on-tertiary-fixed": "#161c22",
+                        "on-primary-container": "#799dd6",
+                        "inverse-surface": "#213145",
+                        "surface-bright": "#f8f9ff",
+                        "tertiary": "#191f25",
+                        "surface-container-low": "#eff4ff",
+                        "on-tertiary-container": "#969ca4",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#d5e3ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "xl": "32px",
+                        "unit": "4px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "panel-width": "320px",
+                        "lg": "24px",
+                        "toolbar-height": "56px"
+                    },
+                    "fontFamily": {
+                        "mono-label": ["JetBrains Mono"],
+                        "title-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display": ["Inter"]
+                    },
+                    "fontSize": {
+                        "mono-label": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "title-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "title-lg": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #f8f9ff;
+            color: #0b1c30;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c3c6d1;
+            border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #737780;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md">
+<!-- Side Navigation Bar -->
+<aside class="fixed left-0 top-0 h-full w-[320px] bg-surface-container-lowest flex flex-col border-r border-outline-variant z-50">
+<div class="p-lg flex items-center gap-sm">
+<div class="w-10 h-10 bg-primary flex items-center justify-center rounded">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: &quot;FILL&quot; 1;">precision_manufacturing</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface">Maintenance Pro</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Enterprise Admin</p>
+</div>
+</div>
+<nav class="flex-1 px-md mt-md space-y-1">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-low transition-colors rounded" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-secondary font-bold border-r-4 border-secondary bg-surface-container rounded-l" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">table_chart</span>
+<span class="font-body-md">Table Configuration</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-low transition-colors rounded" href="#">
+<span class="material-symbols-outlined">build</span>
+<span class="font-body-md">Form Builder</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-low transition-colors rounded" href="#">
+<span class="material-symbols-outlined">database</span>
+<span class="font-body-md">Data Models</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-low transition-colors rounded" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md">Settings</span>
+</a>
+</nav>
+<div class="px-md py-lg border-t border-outline-variant space-y-1">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-low transition-colors rounded" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-body-md">Help</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-container-low transition-colors rounded" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-body-md">Documentation</span>
+</a>
+<button class="w-full mt-lg bg-primary text-on-primary py-sm rounded font-title-md hover:bg-primary-container transition-colors">
+                New Project
+            </button>
+</div>
+</aside>
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 left-[320px] w-[calc(100%-320px)] h-toolbar-height bg-surface-container-lowest flex justify-between items-center px-md border-b border-outline-variant z-40">
+<div class="flex items-center gap-lg">
+<span class="font-title-lg text-title-lg font-bold text-on-surface">Visual Workbench</span>
+<div class="flex items-center gap-md ml-xl">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary" href="#">Drafts</a>
+<a class="font-label-md text-label-md text-primary font-bold border-b-2 border-primary pb-1" href="#">Revisions</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-xl pr-md py-1 text-body-sm bg-surface-container-low border border-outline-variant rounded focus:outline-none focus:border-secondary w-64 transition-all" placeholder="Search resources..." type="text">
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-sm text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">history</span></button>
+<button class="p-sm text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">share</span></button>
+<button class="p-sm text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">more_vert</span></button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant mx-sm"></div>
+<div class="flex items-center gap-sm">
+<button class="px-md py-1 border border-outline text-on-surface-variant rounded font-label-md hover:bg-surface-container-low transition-colors">Preview</button>
+<button class="px-md py-1 bg-primary text-on-primary rounded font-label-md hover:opacity-80 transition-opacity">Save Changes</button>
+</div>
+<img alt="User Avatar" class="w-8 h-8 rounded-full border border-outline-variant ml-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdAV9lCZ0eO1J8bP_iclXydEfx0zpGxvzP_ZcDYR_LWwh8JDT0anFe3wh5RIwoT4It9PmAn0UfkuU72YKOVtXhRgYmfG_MaIMF5NRtCj9VdYPVF3bhl4o3D9UCfR42l6BLQm8XLdLNMRfEgrCVz1dU_mWlHhToYH9wb9_34dAKoZ0vwLeIlEl52BuaH6_yiBhJd4zG2tC3zhZ4xkY6GB8tCo_KxfsGr6mDcf21kc5Tuj_qrvn826zE_xe3c0i7az8CV4Yz90W176Y">
+</div>
+</header>
+<!-- Main Content Area (Workbench Canvas) -->
+<main class="ml-[320px] pt-toolbar-height bg-surface p-md min-h-screen flex flex-col h-screen">
+<!-- Top Section: Query Area -->
+<section class="bg-surface-container-lowest border border-outline-variant p-md mb-md shadow-sm">
+<div class="flex items-center justify-between mb-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary">filter_alt</span>
+<h2 class="font-title-md text-title-md text-on-surface">查询过滤器 (Query Filters)</h2>
+</div>
+<div class="flex gap-sm">
+<button class="px-md py-1.5 bg-surface-container-high text-on-surface-variant rounded hover:bg-surface-container-highest transition-colors font-label-md">重置 (Reset)</button>
+<button class="px-md py-1.5 bg-secondary text-on-secondary rounded hover:bg-primary transition-colors font-label-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">search</span>
+                        查询 (Search)
+                    </button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-md">
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">订单编号 (Order No.)</label>
+<input class="w-full px-sm py-2 border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-sm" placeholder="输入订单号..." type="text">
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">订单状态 (Status)</label>
+<select class="w-full px-sm py-2 border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-sm appearance-none bg-no-repeat bg-[right_8px_center]">
+<option value="">全部 (All)</option>
+<option value="pending">待处理 (Pending)</option>
+<option value="processing">处理中 (Processing)</option>
+<option value="shipped">已发货 (Shipped)</option>
+<option value="delivered">已送达 (Delivered)</option>
+</select>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">日期范围 (Date Range)</label>
+<div class="flex items-center border border-outline-variant rounded focus-within:border-secondary focus-within:ring-1 focus-within:ring-secondary overflow-hidden">
+<input class="w-full px-sm py-2 border-none text-body-sm focus:ring-0" type="date">
+<span class="px-2 text-outline-variant">至</span>
+<input class="w-full px-sm py-2 border-none text-body-sm focus:ring-0" type="date">
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">客户名称 (Customer)</label>
+<input class="w-full px-sm py-2 border border-outline-variant rounded focus:border-secondary focus:ring-1 focus:ring-secondary text-body-sm" placeholder="输入客户名称..." type="text">
+</div>
+</div>
+</section>
+<!-- Middle Section: Data Table -->
+<section class="bg-surface-container-lowest border border-outline-variant shadow-sm overflow-hidden flex-1 flex-col flex"><div class="px-md py-sm bg-surface-container-low border-b border-outline-variant flex items-center justify-between"><div class="flex items-center gap-sm"><span class="material-symbols-outlined text-secondary">table_rows</span><h3 class="font-title-md text-title-md text-on-surface">订单列表 (Order List)</h3></div><div class="flex gap-sm"><button class="px-md py-1.5 bg-secondary text-on-secondary rounded hover:bg-primary transition-colors font-label-md flex items-center gap-xs"><span class="material-symbols-outlined text-[18px]">add</span>新增 (Add)</button><button class="px-md py-1.5 border border-outline text-on-surface-variant rounded hover:bg-surface-container-high transition-colors font-label-md flex items-center gap-xs"><span class="material-symbols-outlined text-[18px]">edit</span>编辑 (Edit)</button><button class="px-md py-1.5 border border-error text-error rounded hover:bg-error-container transition-colors font-label-md flex items-center gap-xs"><span class="material-symbols-outlined text-[18px]">delete</span>删除 (Delete)</button></div></div>
+<div class="overflow-x-auto custom-scrollbar flex-1 overflow-y-auto">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 z-10 bg-surface-container-high">
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider py-2">订单 ID (Order ID)</th>
+<th class="px-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider py-2">承运商 (Carrier)</th>
+<th class="px-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider py-2">路线 (Route)</th>
+<th class="px-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider py-2">创建日期 (Date)</th>
+<th class="px-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider py-2">状态 (Status)</th>
+<th class="px-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider py-2">总重量 (Total Weight)</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container transition-colors group cursor-pointer" onclick="selectRow(this)">
+<td class="px-md font-mono-label text-mono-label text-on-surface py-2">#ORD-2023-001</td>
+<td class="px-md text-body-md py-2">COSCO Shipping</td>
+<td class="px-md text-body-md py-2">Shanghai → Hamburg</td>
+<td class="px-md text-body-md py-2">2023-11-20</td>
+<td class="px-md py-2">
+<span class="px-2 py-0.5 rounded-full bg-green-100 text-green-800 text-[11px] font-bold">已交付 (Delivered)</span>
+</td>
+<td class="px-md font-mono-label text-mono-label py-2">12,450 kg</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors group cursor-pointer bg-secondary-container/20" onclick="selectRow(this)">
+<td class="px-md font-mono-label text-mono-label text-on-surface py-2">#ORD-2023-002</td>
+<td class="px-md text-body-md py-2">Maersk Line</td>
+<td class="px-md text-body-md py-2">Ningbo → Rotterdam</td>
+<td class="px-md text-body-md py-2">2023-11-22</td>
+<td class="px-md py-2">
+<span class="px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 text-[11px] font-bold">运输中 (In Transit)</span>
+</td>
+<td class="px-md font-mono-label text-mono-label py-2">8,200 kg</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors group cursor-pointer" onclick="selectRow(this)">
+<td class="px-md font-mono-label text-mono-label text-on-surface py-2">#ORD-2023-003</td>
+<td class="px-md text-body-md py-2">CMA CGM</td>
+<td class="px-md text-body-md py-2">Shenzhen → Long Beach</td>
+<td class="px-md text-body-md py-2">2023-11-23</td>
+<td class="px-md py-2">
+<span class="px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-800 text-[11px] font-bold">待处理 (Pending)</span>
+</td>
+<td class="px-md font-mono-label text-mono-label py-2">15,700 kg</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors group cursor-pointer" onclick="selectRow(this)">
+<td class="px-md font-mono-label text-mono-label text-on-surface py-2">#ORD-2023-004</td>
+<td class="px-md text-body-md py-2">MSC Mediterranean</td>
+<td class="px-md text-body-md py-2">Qingdao → Singapore</td>
+<td class="px-md text-body-md py-2">2023-11-24</td>
+<td class="px-md py-2">
+<span class="px-2 py-0.5 rounded-full bg-red-100 text-red-800 text-[11px] font-bold">异常 (Delayed)</span>
+</td>
+<td class="px-md font-mono-label text-mono-label py-2">6,100 kg</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination -->
+<div class="px-md py-sm border-t border-outline-variant bg-surface-container-low flex items-center justify-between">
+<span class="text-body-sm text-on-surface-variant">显示 1 到 4，共 24 条记录</span>
+<div class="flex items-center gap-xs">
+<button class="p-1 border border-outline-variant rounded hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[20px]">chevron_left</span></button>
+<button class="px-3 py-1 bg-secondary text-on-secondary rounded text-body-sm font-bold">1</button>
+<button class="px-3 py-1 border border-outline-variant rounded text-body-sm hover:bg-surface-container-high">2</button>
+<button class="px-3 py-1 border border-outline-variant rounded text-body-sm hover:bg-surface-container-high">3</button>
+<span class="px-2">...</span>
+<button class="px-3 py-1 border border-outline-variant rounded text-body-sm hover:bg-surface-container-high">6</button>
+<button class="p-1 border border-outline-variant rounded hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[20px]">chevron_right</span></button>
+</div>
+</div>
+</section>
+<!-- Bottom Section: Master-Detail Layout -->
+</main>
+<script>
+        function selectRow(row) {
+            // Simple visual feedback for row selection
+            document.querySelectorAll('tr').forEach(r => r.classList.remove('bg-secondary-container/20'));
+            row.classList.add('bg-secondary-container/20');
+            
+            // Logic to update bottom details would go here
+            console.log('Selected row:', row.cells[0].innerText);
+        }
+
+        // Initialize active state as per guidelines
+        document.addEventListener('DOMContentLoaded', () => {
+            // Setting Table Configuration as active already in HTML
+        });
+    </script>
+
+
+</body></html>

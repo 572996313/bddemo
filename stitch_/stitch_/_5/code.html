@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>查询条件配置 - OpsFlow 维护</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#0b1c30",
+                    "surface-variant": "#d3e4fe",
+                    "inverse-primary": "#a7c8ff",
+                    "primary-container": "#003366",
+                    "on-tertiary-container": "#969ca4",
+                    "on-secondary-fixed": "#001b3e",
+                    "outline-variant": "#c3c6d1",
+                    "surface-container-highest": "#d3e4fe",
+                    "secondary-fixed-dim": "#aac7ff",
+                    "on-tertiary-fixed": "#161c22",
+                    "surface-bright": "#f8f9ff",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#c1c7cf",
+                    "secondary": "#165db2",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#d6e3ff",
+                    "on-primary-fixed": "#001b3c",
+                    "inverse-surface": "#213145",
+                    "on-primary-fixed-variant": "#1f477b",
+                    "on-primary-container": "#799dd6",
+                    "secondary-container": "#6ca3fd",
+                    "outline": "#737780",
+                    "primary-fixed-dim": "#a7c8ff",
+                    "primary": "#001e40",
+                    "on-primary": "#ffffff",
+                    "tertiary": "#191f25",
+                    "surface-container-low": "#eff4ff",
+                    "tertiary-fixed": "#dde3eb",
+                    "on-surface-variant": "#43474f",
+                    "surface-container": "#e5eeff",
+                    "on-secondary-fixed-variant": "#00458d",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#dce9ff",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-surface": "#0b1c30",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#d5e3ff",
+                    "on-tertiary-fixed-variant": "#41474e",
+                    "on-secondary-container": "#003874",
+                    "error": "#ba1a1a",
+                    "surface": "#f8f9ff",
+                    "tertiary-container": "#2e343a",
+                    "on-tertiary": "#ffffff",
+                    "background": "#f8f9ff",
+                    "surface-tint": "#3a5f94",
+                    "surface-dim": "#cbdbf5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "toolbar-height": "56px",
+                    "sm": "8px",
+                    "panel-width": "320px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "unit": "4px",
+                    "md": "16px",
+                    "xl": "32px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "display": ["Inter"],
+                    "title-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "mono-label": ["JetBrains Mono"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "title-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "display": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "title-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "mono-label": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "title-lg": ["16px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9ff;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .workbench-grid {
+            background-image: radial-gradient(#CBD5E1 0.5px, transparent 0.5px);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="overflow-hidden h-screen flex flex-col">
+<!-- TopNavBar (Shared Component) -->
+<header class="bg-surface dark:bg-surface-container-low border-b border-outline-variant dark:border-outline w-full h-toolbar-height flex justify-between items-center px-lg z-20">
+<div class="flex items-center gap-md">
+<span class="text-title-lg font-title-lg font-bold text-primary dark:text-inverse-primary">OpsFlow 维护</span>
+<div class="h-6 w-px bg-outline-variant mx-sm"></div>
+<h1 class="text-headline-md font-headline-md text-primary dark:text-inverse-primary">查询条件配置</h1>
+</div>
+<div class="flex items-center gap-md">
+<div class="flex gap-sm">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high p-xs rounded transition-colors" data-icon="history">history</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high p-xs rounded transition-colors" data-icon="help">help</button>
+</div>
+<div class="flex gap-sm ml-md">
+<button class="text-label-md font-label-md px-md py-sm rounded border border-outline text-on-surface-variant hover:bg-surface-container-high transition-colors">取消</button>
+<button class="text-label-md font-label-md px-md py-sm rounded bg-primary text-on-primary hover:opacity-90 transition-opacity">保存更改</button>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<nav class="bg-white dark:bg-surface-container border-r border-outline-variant dark:border-outline h-full w-panel-width flex flex-col py-md px-sm z-10">
+<div class="px-md mb-xl flex items-center gap-sm">
+<div class="w-10 h-10 bg-primary-container rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="precision_manufacturing">precision_manufacturing</span>
+</div>
+<div>
+<div class="text-headline-md font-headline-md font-black text-on-surface dark:text-on-surface-variant">Plant Ops</div>
+<div class="text-label-md font-label-md text-on-surface-variant">Site A-12</div>
+</div>
+</div>
+<div class="flex flex-col gap-xs flex-1">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-low transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="build">build</span>
+<span class="text-label-md font-label-md">工单管理</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary font-bold rounded-lg translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="precision_manufacturing">precision_manufacturing</span>
+<span class="text-label-md font-label-md">资产管理</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-low transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="inventory_2">inventory_2</span>
+<span class="text-label-md font-label-md">库存管理</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-low transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="analytics">analytics</span>
+<span class="text-label-md font-label-md">报表统计</span>
+</a>
+</div>
+<div class="mt-auto pt-md border-t border-outline-variant">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-low transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="settings">settings</span>
+<span class="text-label-md font-label-md">设置</span>
+</a>
+</div>
+</nav>
+<!-- Main Content (The Workbench) -->
+<main class="flex-1 workbench-grid flex flex-col p-lg overflow-auto">
+<div class="max-w-6xl mx-auto w-full">
+<!-- Header Stats/Context -->
+<div class="mb-lg flex justify-between items-end">
+<div>
+<nav aria-label="Breadcrumb" class="flex mb-sm">
+<ol class="flex items-center space-x-2 text-label-md font-label-md text-outline">
+<li>配置器</li>
+<li class="material-symbols-outlined text-[12px]" data-icon="chevron_right">chevron_right</li>
+<li class="text-on-surface-variant">查询条件</li>
+</ol>
+</nav>
+<h2 class="text-display font-display text-primary">查询条件配置</h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-xs">为资产维护表定义动态搜索行为和 UI 控件。</p>
+</div>
+<button class="flex items-center gap-sm bg-primary text-on-primary px-lg py-md rounded font-bold hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span>添加查询条件</span>
+</button>
+</div>
+<!-- Bento-style Layout for Conditions -->
+<div class="grid grid-cols-1 gap-md">
+<!-- Table Header -->
+<div class="bg-surface-container-high rounded-t-xl border border-outline-variant grid grid-cols-12 px-md py-sm">
+<div class="col-span-1 text-label-md font-label-md text-on-surface-variant font-bold uppercase tracking-wider flex items-center">排序</div>
+<div class="col-span-2 text-label-md font-label-md text-on-surface-variant font-bold uppercase tracking-wider flex items-center">查询标签</div>
+<div class="col-span-2 text-label-md font-label-md text-on-surface-variant font-bold uppercase tracking-wider flex items-center">字段名称</div>
+<div class="col-span-2 text-label-md font-label-md text-on-surface-variant font-bold uppercase tracking-wider flex items-center">控件类型</div>
+<div class="col-span-2 text-label-md font-label-md text-on-surface-variant font-bold uppercase tracking-wider flex items-center">匹配方式</div>
+<div class="col-span-2 text-label-md font-label-md text-on-surface-variant font-bold uppercase tracking-wider flex items-center">默认值</div>
+<div class="col-span-1 text-label-md font-label-md text-on-surface-variant font-bold uppercase tracking-wider flex items-center justify-end">操作</div>
+</div>
+<!-- Row 1: Order No -->
+<div class="bg-white border-x border-b border-outline-variant grid grid-cols-12 px-md py-md hover:bg-surface-container-low transition-colors items-center group relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="col-span-1 font-mono-label text-mono-label text-outline">01</div>
+<div class="col-span-2 font-title-md text-title-md text-on-surface">工单编号</div>
+<div class="col-span-2">
+<span class="bg-surface-container-highest px-sm py-xs rounded font-mono-label text-mono-label text-primary">order_number</span>
+</div>
+<div class="col-span-2">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-[18px] text-outline" data-icon="edit_note">edit_note</span>
+<span class="text-body-md font-body-md text-on-surface-variant">输入框</span>
+</div>
+</div>
+<div class="col-span-2">
+<span class="bg-[#E0F2FE] text-[#0369A1] px-sm py-xs rounded text-label-md font-label-md">模糊匹配</span>
+</div>
+<div class="col-span-2 text-body-sm font-body-sm text-outline">--</div>
+<div class="col-span-1 flex justify-end gap-sm opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="settings">settings</button>
+<button class="material-symbols-outlined text-outline hover:text-error transition-colors" data-icon="delete">delete</button>
+</div>
+</div>
+<!-- Row 2: Status -->
+<div class="bg-white border-x border-b border-outline-variant grid grid-cols-12 px-md py-md hover:bg-surface-container-low transition-colors items-center group relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="col-span-1 font-mono-label text-mono-label text-outline">02</div>
+<div class="col-span-2 font-title-md text-title-md text-on-surface">状态</div>
+<div class="col-span-2">
+<span class="bg-surface-container-highest px-sm py-xs rounded font-mono-label text-mono-label text-primary">maintenance_status</span>
+</div>
+<div class="col-span-2">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-[18px] text-outline" data-icon="list_alt">list_alt</span>
+<span class="text-body-md font-body-md text-on-surface-variant">下拉选择</span>
+</div>
+</div>
+<div class="col-span-2">
+<span class="bg-[#F0FDF4] text-[#15803D] px-sm py-xs rounded text-label-md font-label-md">精确匹配</span>
+</div>
+<div class="col-span-2">
+<span class="text-body-sm font-body-sm text-on-surface-variant italic">运行中</span>
+</div>
+<div class="col-span-1 flex justify-end gap-sm opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="settings">settings</button>
+<button class="material-symbols-outlined text-outline hover:text-error transition-colors" data-icon="delete">delete</button>
+</div>
+</div>
+<!-- Row 3: Date -->
+<div class="bg-white border-x border-b border-outline-variant rounded-b-xl grid grid-cols-12 px-md py-md hover:bg-surface-container-low transition-colors items-center group relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="col-span-1 font-mono-label text-mono-label text-outline">03</div>
+<div class="col-span-2 font-title-md text-title-md text-on-surface">日期</div>
+<div class="col-span-2">
+<span class="bg-surface-container-highest px-sm py-xs rounded font-mono-label text-mono-label text-primary">created_at</span>
+</div>
+<div class="col-span-2">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-[18px] text-outline" data-icon="date_range">date_range</span>
+<span class="text-body-md font-body-md text-on-surface-variant">日期范围</span>
+</div>
+</div>
+<div class="col-span-2">
+<span class="bg-[#FEFCE8] text-[#854D0E] px-sm py-xs rounded text-label-md font-label-md">介于</span>
+</div>
+<div class="col-span-2 text-body-sm font-body-sm text-outline">最近 30 天</div>
+<div class="col-span-1 flex justify-end gap-sm opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors" data-icon="settings">settings</button>
+<button class="material-symbols-outlined text-outline hover:text-error transition-colors" data-icon="delete">delete</button>
+</div>
+</div>
+</div>
+<!-- Floating Helper Card -->
+<div class="mt-xl grid grid-cols-1 md:grid-cols-3 gap-lg">
+<div class="bg-white p-lg rounded-xl border border-outline-variant flex flex-col gap-sm">
+<span class="material-symbols-outlined text-secondary text-display" data-icon="auto_awesome">auto_awesome</span>
+<h4 class="text-title-lg font-title-lg text-on-background">实时预览</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">可视化当前配置在主维护表格中向最终用户呈现的效果。</p>
+<div class="mt-auto border-t border-outline-variant pt-md flex items-center justify-between">
+<span class="text-label-md font-label-md text-outline">3 个激活的筛选器</span>
+<button class="text-primary font-bold text-label-md hover:underline">查看预览</button>
+</div>
+</div>
+<div class="bg-white p-lg rounded-xl border border-outline-variant flex flex-col gap-sm">
+<span class="material-symbols-outlined text-secondary text-display" data-icon="schema">schema</span>
+<h4 class="text-title-lg font-title-lg text-on-background">架构同步</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">确保您的“字段名称”与 Site A-12 资产管理的数据库列匹配。</p>
+<div class="mt-auto border-t border-outline-variant pt-md flex items-center justify-between">
+<span class="text-label-md font-label-md text-[#15803D]">已同步</span>
+<button class="text-primary font-bold text-label-md hover:underline">设置</button>
+</div>
+</div>
+<div class="bg-white p-lg rounded-xl border border-outline-variant flex flex-col gap-sm">
+<span class="material-symbols-outlined text-secondary text-display" data-icon="speed">speed</span>
+<h4 class="text-title-lg font-title-lg text-on-background">索引健康</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">针对大容量表上的“介于”和“模糊匹配”操作进行性能检查。</p>
+<div class="mt-auto border-t border-outline-variant pt-md flex items-center justify-between">
+<span class="text-label-md font-label-md text-outline">上次检查：2小时前</span>
+<button class="text-primary font-bold text-label-md hover:underline">立即检查</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Properties Panel (Right sidebar) -->
+<aside class="bg-white border-l border-outline-variant w-panel-width flex flex-col z-10">
+<div class="p-md border-b border-outline-variant flex items-center justify-between bg-surface-container-low">
+<span class="text-title-md font-title-md text-on-surface">查询条件属性</span>
+<span class="material-symbols-outlined text-outline cursor-pointer" data-icon="close">close</span>
+</div>
+<div class="p-lg flex flex-col gap-lg overflow-y-auto">
+<div class="space-y-sm">
+<label class="text-label-md font-label-md text-on-surface-variant">查询标签 (显示名称)</label>
+<input class="w-full border border-outline-variant rounded px-md py-sm focus:ring-1 focus:ring-secondary focus:border-secondary outline-none text-body-md font-body-md" placeholder="输入标签..." type="text" value="工单编号"/>
+</div>
+<div class="space-y-sm">
+<label class="text-label-md font-label-md text-on-surface-variant">字段名称 (后端键)</label>
+<div class="relative">
+<input class="w-full border border-outline-variant rounded px-md py-sm font-mono-label text-mono-label focus:ring-1 focus:ring-secondary focus:border-secondary outline-none" placeholder="例如 status_id" type="text" value="order_number"/>
+<span class="absolute right-3 top-2.5 material-symbols-outlined text-outline text-[18px]" data-icon="search">search</span>
+</div>
+</div>
+<div class="space-y-sm">
+<label class="text-label-md font-label-md text-on-surface-variant">控件类型</label>
+<select class="w-full border border-outline-variant rounded px-md py-sm text-body-md font-body-md focus:ring-1 focus:ring-secondary focus:border-secondary outline-none appearance-none bg-white">
+<option>输入框</option>
+<option>下拉选择</option>
+<option>多选下拉</option>
+<option>日期范围</option>
+<option>级联选择</option>
+</select>
+</div>
+<div class="space-y-sm">
+<label class="text-label-md font-label-md text-on-surface-variant">匹配方式</label>
+<div class="grid grid-cols-2 gap-sm">
+<button class="border border-outline-variant text-on-surface-variant px-sm py-xs text-label-md font-label-md rounded text-center hover:bg-surface-container-low transition-colors">精确匹配</button>
+<button class="border border-secondary bg-secondary-container text-on-secondary-container px-sm py-xs text-label-md font-label-md rounded text-center">模糊匹配</button>
+<button class="border border-outline-variant text-on-surface-variant px-sm py-xs text-label-md font-label-md rounded text-center hover:bg-surface-container-low transition-colors">包含 (In)</button>
+<button class="border border-outline-variant text-on-surface-variant px-sm py-xs text-label-md font-label-md rounded text-center hover:bg-surface-container-low transition-colors">介于</button>
+</div>
+</div>
+<div class="space-y-sm">
+<label class="text-label-md font-label-md text-on-surface-variant">校验规则</label>
+<input class="w-full border border-outline-variant rounded px-md py-sm text-body-md font-body-md bg-surface-bright" placeholder="正则表达式或预定义规则..." type="text"/>
+</div>
+<div class="pt-lg border-t border-outline-variant mt-auto">
+<button class="w-full bg-primary text-on-primary py-md rounded font-bold hover:opacity-90 transition-opacity flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="check">check</span>
+                        更新条件
+                    </button>
+<p class="text-center text-label-md font-label-md text-outline mt-md">系统将自动刷新预览</p>
+</div>
+</div>
+</aside>
+</div>
+<script>
+        // Simple micro-interaction for active row
+        const rows = document.querySelectorAll('.grid-cols-12.hover\\:bg-surface-container-low');
+        rows.forEach(row => {
+            row.addEventListener('click', () => {
+                rows.forEach(r => {
+                    r.classList.remove('bg-surface-container-low');
+                    const ind = r.querySelector('.absolute');
+                    if(ind) ind.classList.add('opacity-0');
+                    if(ind) ind.classList.remove('opacity-100');
+                });
+                row.classList.add('bg-surface-container-low');
+                // Simulate focus highlight
+                const indicator = row.querySelector('.absolute');
+                if(indicator) indicator.classList.remove('opacity-0');
+                if(indicator) indicator.classList.add('opacity-100');
+            });
+        });
+    </script>
+</body></html>

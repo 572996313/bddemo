@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "inverse-primary": "#a7c8ff",
+                        "primary-container": "#003366",
+                        "on-tertiary-container": "#969ca4",
+                        "on-secondary-fixed": "#001b3e",
+                        "outline-variant": "#c3c6d1",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary-fixed-dim": "#aac7ff",
+                        "on-tertiary-fixed": "#161c22",
+                        "surface-bright": "#f8f9ff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#c1c7cf",
+                        "secondary": "#165db2",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#d6e3ff",
+                        "on-primary-fixed": "#001b3c",
+                        "inverse-surface": "#213145",
+                        "on-primary-fixed-variant": "#1f477b",
+                        "on-primary-container": "#799dd6",
+                        "secondary-container": "#6ca3fd",
+                        "outline": "#737780",
+                        "primary-fixed-dim": "#a7c8ff",
+                        "primary": "#001e40",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#191f25",
+                        "surface-container-low": "#eff4ff",
+                        "tertiary-fixed": "#dde3eb",
+                        "on-surface-variant": "#43474f",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed-variant": "#00458d",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#dce9ff",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-surface": "#0b1c30",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#d5e3ff",
+                        "on-tertiary-fixed-variant": "#41474e",
+                        "on-secondary-container": "#003874",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9ff",
+                        "tertiary-container": "#2e343a",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f8f9ff",
+                        "surface-tint": "#3a5f94",
+                        "surface-dim": "#cbdbf5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "toolbar-height": "56px",
+                        "sm": "8px",
+                        "panel-width": "320px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display": ["Inter"],
+                        "title-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "mono-label": ["JetBrains Mono"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "title-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "display": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "title-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "mono-label": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "title-lg": ["16px", {"lineHeight": "24px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9ff;
+            color: #0b1c30;
+            overflow-x: hidden;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 2px;
+        }
+        .radio-card:checked + label {
+            border-color: #165db2;
+            background-color: #eff4ff;
+            box-shadow: 0 0 0 1px #165db2;
+        }
+        .focus-ring:focus {
+            outline: none;
+            border-color: #165db2;
+            box-shadow: 0 0 0 2px rgba(22, 93, 178, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background">
+<!-- Sidebar -->
+<aside class="fixed left-0 top-0 h-screen w-[320px] bg-white border-r border-outline-variant flex flex-col py-md px-sm z-50">
+<div class="flex items-center gap-md px-md mb-xl">
+<div class="w-10 h-10 bg-primary-container flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">precision_manufacturing</span>
+</div>
+<div>
+<h1 class="text-headline-md font-headline-md font-black text-on-surface">工厂运营</h1>
+<p class="text-label-md font-label-md text-on-surface-variant">站点 A-12</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-md px-md py-sm hover:bg-surface-container-high transition-colors text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">build</span>
+<span class="text-label-md font-label-md">工单管理</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container font-bold rounded-lg translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">precision_manufacturing</span>
+<span class="text-label-md font-label-md">资产管理</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm hover:bg-surface-container-high transition-colors text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-label-md font-label-md">库存盘点</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm hover:bg-surface-container-high transition-colors text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-label-md font-label-md">数据报表</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-md">
+<a class="flex items-center gap-md px-md py-sm hover:bg-surface-container-high transition-colors text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">设置</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-[320px] min-h-screen flex flex-col">
+<!-- Top App Bar -->
+<header class="h-toolbar-height bg-surface border-b border-outline-variant flex justify-between items-center px-lg w-full z-40 sticky top-0">
+<div class="flex items-center gap-md">
+<span class="text-title-lg font-title-lg font-bold text-primary">OpsFlow 维护</span>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">history</span>
+</button>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">help</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden border border-outline-variant">
+<img alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJYLLIPjUOStAv-nWAzdQpxHiyUKh5QtbvGGFHbD0mykJuoSQW4vSfCZu-lfheBEks22-T3g-9I6w-nPP2MZ7tglO8UWKeiMiW6T49ojzW62B6GLd1wygOTZ2MhJwauYNj-jdMD8zkyY6etYTwrdxpUvh1ztV5_ufQMk23tNpeC78iiJR4Tbw-Ro3S4kGu8qLiYS8JJqAHr2NT4vhQqPUV2ZYhykflHBSHPrfzqhbez0mZ0SateTthfATz_8xzfXn3ailPoQRvzJY"/>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="p-lg flex-1">
+<div class="max-w-5xl mx-auto">
+<!-- Action Header -->
+<div class="flex items-center justify-between mb-xl">
+<div class="flex items-center gap-sm">
+<button class="px-md py-sm bg-primary text-on-primary text-label-md font-label-md rounded hover:opacity-90 transition-all flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">save</span>
+                        保存更改
+                    </button>
+<button class="px-md py-sm border border-outline text-on-surface-variant text-label-md font-label-md rounded hover:bg-surface-container-low transition-all">
+                        取消
+                    </button>
+</div>
+<div class="flex flex-col items-end">
+<h2 class="text-headline-md font-headline-md text-on-surface">基础信息维护</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">定义核心表格属性和展示逻辑。</p>
+</div>
+</div>
+<!-- Form Section -->
+<div class="grid grid-cols-12 gap-md">
+<!-- Basic Metadata Card -->
+<div class="col-span-12 lg:col-span-7 bg-white border border-outline-variant rounded p-lg">
+<h3 class="text-title-md font-title-md text-on-surface mb-md flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary">info</span>
+                        实体定义
+                    </h3>
+<div class="grid grid-cols-2 gap-lg">
+<div class="flex flex-col gap-xs">
+<label class="text-label-md font-label-md text-on-surface-variant" for="table-name">表格名称</label>
+<input class="border border-outline-variant rounded p-sm text-body-md focus-ring" id="table-name" placeholder="例如：Asset_Registry_V1" type="text"/>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="text-label-md font-label-md text-on-surface-variant" for="unique-code">唯一编码</label>
+<input class="border border-outline-variant rounded p-sm text-body-md font-mono focus-ring" id="unique-code" placeholder="T_ASSET_MAIN" type="text"/>
+</div>
+<div class="col-span-2 flex flex-col gap-xs">
+<label class="text-label-md font-label-md text-on-surface-variant" for="data-source">数据源</label>
+<div class="relative">
+<select class="w-full border border-outline-variant rounded p-sm text-body-md appearance-none focus-ring" id="data-source">
+<option>PostgreSQL 生产集群</option>
+<option>遗留 SAP 集成</option>
+<option>实时 IoT 枢纽</option>
+<option>冷存储归档</option>
+</select>
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<div class="col-span-2 flex flex-col gap-xs">
+<label class="text-label-md font-label-md text-on-surface-variant" for="remarks">备注</label>
+<textarea class="border border-outline-variant rounded p-sm text-body-md focus-ring resize-none" id="remarks" placeholder="请输入配置详情或维护备注..." rows="4"></textarea>
+</div>
+</div>
+</div>
+<!-- Layout Preview Card (Redesigned Module) -->
+<div class="col-span-12 lg:col-span-5 bg-white border border-outline-variant rounded p-lg flex flex-col">
+<h3 class="text-title-md font-title-md text-on-surface mb-md flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary">grid_view</span>
+                        展示优化
+                    </h3>
+<p class="text-body-sm text-on-surface-variant mb-lg">选择最终用户的业务交互模式。</p>
+<div class="space-y-sm">
+<!-- Mode 1: Pure List -->
+<div class="relative">
+<input checked="" class="peer hidden radio-card" id="layout-pure-list" name="layout" type="radio"/>
+<label class="flex items-center gap-md p-md border border-outline-variant rounded cursor-pointer hover:bg-surface-container-low transition-all" for="layout-pure-list">
+<span class="material-symbols-outlined text-on-surface-variant">table_chart</span>
+<div>
+<p class="text-title-md font-title-md">纯主表列表</p>
+<p class="text-body-sm text-on-surface-variant">专注于单表数据的高效展示与管理</p>
+</div>
+</label>
+</div>
+<!-- Mode 2: Side Drawer -->
+<div class="relative">
+<input class="peer hidden radio-card" id="layout-side-drawer" name="layout" type="radio"/>
+<label class="flex items-center gap-md p-md border border-outline-variant rounded cursor-pointer hover:bg-surface-container-low transition-all" for="layout-side-drawer">
+<span class="material-symbols-outlined text-on-surface-variant">dock_to_left</span>
+<div>
+<p class="text-title-md font-title-md">侧边抽屉明细</p>
+<p class="text-body-sm text-on-surface-variant">行内操作触发侧边栏快速编辑详情</p>
+</div>
+</label>
+</div>
+<!-- Mode 3: Master-Detail -->
+<div class="relative">
+<input class="peer hidden radio-card" id="layout-master-detail" name="layout" type="radio"/>
+<label class="flex items-center gap-md p-md border border-outline-variant rounded cursor-pointer hover:bg-surface-container-low transition-all" for="layout-master-detail">
+<span class="material-symbols-outlined text-on-surface-variant">splitscreen</span>
+<div>
+<p class="text-title-md font-title-md">主从表联动</p>
+<p class="text-body-sm text-on-surface-variant">页面多区域拆分，同步展示主从数据</p>
+</div>
+</label>
+</div>
+<!-- Mode 4: Enhanced Query -->
+<div class="relative">
+<input class="peer hidden radio-card" id="layout-enhanced-query" name="layout" type="radio"/>
+<label class="flex items-center gap-md p-md border border-outline-variant rounded cursor-pointer hover:bg-surface-container-low transition-all" for="layout-enhanced-query">
+<span class="material-symbols-outlined text-on-surface-variant">pageview</span>
+<div>
+<p class="text-title-md font-title-md">增强查询布局</p>
+<p class="text-body-sm text-on-surface-variant">顶置多维查询条件，下接综合结果</p>
+</div>
+</label>
+</div>
+</div>
+</div>
+<!-- Visual Accent Card -->
+<div class="col-span-12 bg-white border border-outline-variant rounded overflow-hidden relative h-32 flex items-center px-lg">
+<div class="absolute inset-0 opacity-10 pointer-events-none overflow-hidden"></div>
+<div class="relative z-10 flex items-center justify-between w-full">
+<div>
+<p class="text-label-md font-label-md text-secondary font-bold uppercase tracking-wider">系统状态</p>
+<p class="text-headline-md font-headline-md text-on-background">配置完整性已验证</p>
+</div>
+<div class="flex items-center gap-lg">
+<div class="text-right">
+<p class="text-label-md font-label-md text-on-surface-variant">活动同步</p>
+<p class="text-title-md font-title-md text-primary">已连接</p>
+</div>
+<div class="w-12 h-12 bg-surface-container-highest rounded-full flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-secondary animate-pulse" style="font-variation-settings: 'FILL' 1;">sync</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+    // Micro-interactions for selection
+    document.querySelectorAll('.radio-card').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            const labels = document.querySelectorAll('.radio-card + label');
+            labels.forEach(l => {
+                l.classList.remove('bg-surface-container-low', 'border-secondary', 'shadow-[0_0_0_1px_#165db2]');
+            });
+            if(e.target.checked) {
+                e.target.nextElementSibling.classList.add('bg-surface-container-low', 'border-secondary', 'shadow-[0_0_0_1px_#165db2]');
+            }
+        });
+    });
+
+    // Basic form animation on load
+    window.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.bg-white');
+        cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+                card.style.transition = 'all 0.4s ease-out';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    });
+</script>
+</body></html>

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "inverse-primary": "#a7c8ff",
+                        "primary-container": "#003366",
+                        "on-tertiary-container": "#969ca4",
+                        "on-secondary-fixed": "#001b3e",
+                        "outline-variant": "#c3c6d1",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary-fixed-dim": "#aac7ff",
+                        "on-tertiary-fixed": "#161c22",
+                        "surface-bright": "#f8f9ff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#c1c7cf",
+                        "secondary": "#165db2",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#d6e3ff",
+                        "on-primary-fixed": "#001b3c",
+                        "inverse-surface": "#213145",
+                        "on-primary-fixed-variant": "#1f477b",
+                        "on-primary-container": "#799dd6",
+                        "secondary-container": "#6ca3fd",
+                        "outline": "#737780",
+                        "primary-fixed-dim": "#a7c8ff",
+                        "primary": "#001e40",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#191f25",
+                        "surface-container-low": "#eff4ff",
+                        "tertiary-fixed": "#dde3eb",
+                        "on-surface-variant": "#43474f",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed-variant": "#00458d",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#dce9ff",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-surface": "#0b1c30",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#d5e3ff",
+                        "on-tertiary-fixed-variant": "#41474e",
+                        "on-secondary-container": "#003874",
+                        "error": "#ba1a1a",
+                        "surface": "#f8f9ff",
+                        "tertiary-container": "#2e343a",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f8f9ff",
+                        "surface-tint": "#3a5f94",
+                        "surface-dim": "#cbdbf5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "toolbar-height": "56px",
+                        "sm": "8px",
+                        "panel-width": "320px",
+                        "lg": "24px",
+                        "xs": "4px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "display": ["Inter"],
+                        "title-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "mono-label": ["JetBrains Mono"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "title-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "display": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "title-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "mono-label": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "title-lg": ["16px", {"lineHeight": "24px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #f8f9ff;
+            color: #0b1c30;
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-checkbox:checked {
+            background-color: #001e40;
+            border-color: #001e40;
+        }
+        .workbench-grid {
+            background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="flex overflow-hidden h-screen">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-screen w-panel-width bg-white dark:bg-surface-container border-r border-outline-variant dark:border-outline flex flex-col py-md px-sm z-50">
+<div class="mb-xl px-md">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-lg">settings_suggest</span>
+</div>
+<div>
+<h1 class="text-headline-md font-black text-on-surface dark:text-on-surface-variant">Plant Ops</h1>
+<p class="text-label-md font-label-md text-outline">Site A-12</p>
+</div>
+</div>
+</div>
+<nav class="flex-grow space-y-xs">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-low transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined" data-icon="build">build</span>
+<span class="text-label-md font-label-md">工单管理</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-low transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined" data-icon="precision_manufacturing">precision_manufacturing</span>
+<span class="text-label-md font-label-md">资产台账</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-low transition-colors rounded-lg group" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="text-label-md font-label-md">库存管理</span>
+</a>
+<!-- Active State Logic: Mapping to Reports context or generic settings -->
+<a class="flex items-center gap-md px-md py-sm bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary font-bold rounded-lg translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-label-md font-label-md">报表统计</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-md px-md">
+<button class="w-full bg-primary text-on-primary py-sm rounded font-title-md text-title-md hover:bg-primary-container transition-colors mb-md">
+            新建条目
+        </button>
+<a class="flex items-center gap-md py-sm text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-low transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-label-md font-label-md">系统设置</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-grow ml-[320px] flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar (Shared Component) -->
+<header class="bg-surface dark:bg-surface-container-low w-full h-toolbar-height border-b border-outline-variant dark:border-outline flex justify-between items-center px-lg z-40">
+<div class="flex items-center gap-xl">
+<span class="text-title-lg font-title-lg font-bold text-primary dark:text-inverse-primary">OpsFlow 维护</span>
+<nav class="hidden md:flex gap-lg items-center h-full">
+<a class="text-on-surface-variant dark:text-outline-variant text-label-md font-label-md hover:text-primary transition-colors h-toolbar-height flex items-center" href="#">概览</a>
+<a class="text-primary dark:text-inverse-primary border-b-2 border-primary text-label-md font-label-md h-toolbar-height flex items-center" href="#">字段配置</a>
+<a class="text-on-surface-variant dark:text-outline-variant text-label-md font-label-md hover:text-primary transition-colors h-toolbar-height flex items-center" href="#">数据映射</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant mx-2"></div>
+<button class="text-on-surface-variant text-label-md font-label-md hover:text-primary transition-colors">取消</button>
+<button class="bg-primary text-on-primary px-md py-1.5 rounded text-label-md font-label-md hover:bg-primary-container transition-colors">保存更改</button>
+</div>
+</header>
+<!-- Workbench Canvas -->
+<div class="flex-grow workbench-grid p-xl overflow-y-auto">
+<div class="max-w-6xl mx-auto">
+<!-- Page Header with Action -->
+<div class="flex justify-between items-end mb-xl">
+<div>
+<h2 class="text-display font-display text-on-background">字段列配置</h2>
+<p class="text-body-lg font-body-lg text-outline mt-xs">配置主资产管理数据表的模式和可见性。</p>
+</div>
+<button class="flex items-center gap-sm bg-primary text-on-primary px-lg py-sm rounded-lg font-title-md text-title-md hover:shadow-lg transition-all transform active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 600">add</span>
+                    添加列
+                </button>
+</div>
+<!-- Data Table Configuration -->
+<div class="bg-white border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50 border-b border-outline-variant">
+<th class="px-md py-sm text-label-md font-label-md text-outline uppercase tracking-wider w-16">序号</th>
+<th class="px-md py-sm text-label-md font-label-md text-outline uppercase tracking-wider">显示名称</th>
+<th class="px-md py-sm text-label-md font-label-md text-outline uppercase tracking-wider">数据键</th>
+<th class="px-md py-sm text-label-md font-label-md text-outline uppercase tracking-wider w-32">宽度</th>
+<th class="px-md py-sm text-label-md font-label-md text-outline uppercase tracking-wider w-40">对齐方式</th>
+<th class="px-md py-sm text-label-md font-label-md text-outline uppercase tracking-wider text-center w-24">可见</th>
+<th class="px-md py-sm text-label-md font-label-md text-outline uppercase tracking-wider text-center w-24">可排序</th>
+<th class="px-md py-sm text-label-md font-label-md text-outline uppercase tracking-wider text-right w-24">操作</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-md py-md text-mono-label font-mono-label text-outline">01</td>
+<td class="px-md py-md">
+<input class="w-full border-transparent bg-transparent focus:border-secondary focus:ring-0 text-title-md font-title-md p-1 rounded" type="text" value="资产编号"/>
+</td>
+<td class="px-md py-md">
+<code class="text-mono-label font-mono-label bg-surface-container-low px-2 py-1 rounded text-secondary">asset_id</code>
+</td>
+<td class="px-md py-md">
+<input class="w-20 border border-outline-variant rounded px-2 py-1 text-body-sm font-body-sm" type="number" value="120"/>
+</td>
+<td class="px-md py-md">
+<select class="w-full border border-outline-variant rounded px-2 py-1 text-body-sm font-body-sm">
+<option selected="">居左</option>
+<option>居中</option>
+<option>居右</option>
+</select>
+</td>
+<td class="px-md py-md text-center">
+<input checked="" class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-md py-md text-center">
+<input checked="" class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-md py-md text-right">
+<button class="text-error hover:bg-error-container p-1 rounded transition-colors opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-md">delete</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low transition-colors group">
+<td class="px-md py-md text-mono-label font-mono-label text-outline">02</td>
+<td class="px-md py-md">
+<input class="w-full border-transparent bg-transparent focus:border-secondary focus:ring-0 text-title-md font-title-md p-1 rounded" type="text" value="设备名称"/>
+</td>
+<td class="px-md py-md">
+<code class="text-mono-label font-mono-label bg-surface-container-low px-2 py-1 rounded text-secondary">device_name</code>
+</td>
+<td class="px-md py-md">
+<input class="w-20 border border-outline-variant rounded px-2 py-1 text-body-sm font-body-sm" type="number" value="240"/>
+</td>
+<td class="px-md py-md">
+<select class="w-full border border-outline-variant rounded px-2 py-1 text-body-sm font-body-sm">
+<option selected="">居左</option>
+<option>居中</option>
+<option>居右</option>
+</select>
+</td>
+<td class="px-md py-md text-center">
+<input checked="" class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-md py-md text-center">
+<input checked="" class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-md py-md text-right">
+<button class="text-error hover:bg-error-container p-1 rounded transition-colors opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-md">delete</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-md py-md text-mono-label font-mono-label text-outline">03</td>
+<td class="px-md py-md">
+<input class="w-full border-transparent bg-transparent focus:border-secondary focus:ring-0 text-title-md font-title-md p-1 rounded" type="text" value="维护状态"/>
+</td>
+<td class="px-md py-md">
+<code class="text-mono-label font-mono-label bg-surface-container-low px-2 py-1 rounded text-secondary">maint_status</code>
+</td>
+<td class="px-md py-md">
+<input class="w-20 border border-outline-variant rounded px-2 py-1 text-body-sm font-body-sm" type="number" value="140"/>
+</td>
+<td class="px-md py-md">
+<select class="w-full border border-outline-variant rounded px-2 py-1 text-body-sm font-body-sm">
+<option>居左</option>
+<option selected="">居中</option>
+<option>居右</option>
+</select>
+</td>
+<td class="px-md py-md text-center">
+<input checked="" class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-md py-md text-center">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-md py-md text-right">
+<button class="text-error hover:bg-error-container p-1 rounded transition-colors opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-md">delete</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low transition-colors group">
+<td class="px-md py-md text-mono-label font-mono-label text-outline">04</td>
+<td class="px-md py-md">
+<input class="w-full border-transparent bg-transparent focus:border-secondary focus:ring-0 text-title-md font-title-md p-1 rounded" type="text" value="安装日期"/>
+</td>
+<td class="px-md py-md">
+<code class="text-mono-label font-mono-label bg-surface-container-low px-2 py-1 rounded text-secondary">install_date</code>
+</td>
+<td class="px-md py-md">
+<input class="w-20 border border-outline-variant rounded px-2 py-1 text-body-sm font-body-sm" type="number" value="180"/>
+</td>
+<td class="px-md py-md">
+<select class="w-full border border-outline-variant rounded px-2 py-1 text-body-sm font-body-sm">
+<option selected="">居左</option>
+<option>居中</option>
+<option>居右</option>
+</select>
+</td>
+<td class="px-md py-md text-center">
+<input checked="" class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-md py-md text-center">
+<input checked="" class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-md py-md text-right">
+<button class="text-error hover:bg-error-container p-1 rounded transition-colors opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-md">delete</span>
+</button>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-md py-md text-mono-label font-mono-label text-outline">05</td>
+<td class="px-md py-md">
+<input class="w-full border-transparent bg-transparent focus:border-secondary focus:ring-0 text-title-md font-title-md p-1 rounded" type="text" value="最后校准时间"/>
+</td>
+<td class="px-md py-md">
+<code class="text-mono-label font-mono-label bg-surface-container-low px-2 py-1 rounded text-secondary">last_cal_ts</code>
+</td>
+<td class="px-md py-md">
+<input class="w-20 border border-outline-variant rounded px-2 py-1 text-body-sm font-body-sm" type="number" value="200"/>
+</td>
+<td class="px-md py-md">
+<select class="w-full border border-outline-variant rounded px-2 py-1 text-body-sm font-body-sm">
+<option>居左</option>
+<option>居中</option>
+<option selected="">居右</option>
+</select>
+</td>
+<td class="px-md py-md text-center">
+<input class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-md py-md text-center">
+<input checked="" class="w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary" type="checkbox"/>
+</td>
+<td class="px-md py-md text-right">
+<button class="text-error hover:bg-error-container p-1 rounded transition-colors opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-md">delete</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Preview Area -->
+<div class="mt-xl grid grid-cols-3 gap-lg">
+<div class="col-span-1 bg-white border border-outline-variant rounded-xl p-md">
+<h4 class="text-title-md font-title-md text-on-surface mb-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary">visibility</span>
+                        架构统计
+                    </h4>
+<div class="space-y-md mt-md">
+<div class="flex justify-between items-center">
+<span class="text-body-sm font-body-sm text-outline">总列数</span>
+<span class="text-title-md font-title-md">12</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-sm font-body-sm text-outline">可见列数</span>
+<span class="text-title-md font-title-md">8</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-2/3"></div>
+</div>
+<p class="text-label-md font-label-md text-outline italic">已达到1920px宽度的最佳显示密度。</p>
+</div>
+</div>
+<div class="col-span-2 relative overflow-hidden bg-primary-container rounded-xl p-lg text-on-primary">
+<div class="relative z-10 flex flex-col h-full justify-between">
+<div>
+<h4 class="text-headline-md font-headline-md">动态表格预览</h4>
+<p class="text-on-primary-container mt-xs text-body-md font-body-md">实时渲染资产看板的当前配置。更改将全局应用于所有 Site A-12 终端。</p>
+</div>
+<div class="mt-xl flex gap-md">
+<button class="bg-secondary-container text-on-secondary-container px-md py-2 rounded-lg font-title-md text-title-md hover:bg-secondary transition-colors">
+                                预览移动端
+                            </button>
+<button class="border border-on-primary-container px-md py-2 rounded-lg font-title-md text-title-md hover:bg-on-primary-container hover:text-primary transition-colors">
+                                导出 JSON
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+    // Micro-interactions for table inputs
+    document.querySelectorAll('input[type="text"], input[type="number"], select').forEach(input => {
+        input.addEventListener('focus', () => {
+            input.closest('tr').classList.add('bg-blue-50/50');
+        });
+        input.addEventListener('blur', () => {
+            input.closest('tr').classList.remove('bg-blue-50/50');
+        });
+    });
+
+    // Simple Delete Row logic simulation
+    document.querySelectorAll('button.text-error').forEach(btn => {
+        btn.addEventListener('click', function() {
+            if(confirm('确定要删除此列吗？')) {
+                this.closest('tr').style.opacity = '0';
+                setTimeout(() => this.closest('tr').remove(), 300);
+            }
+        });
+    });
+</script>
+</body></html>
